@@ -47,4 +47,8 @@ for i in 标题:
     if i.type==WD_STYLE_TYPE.PARAGRAPH:
         print(i.name)
 
-
+file4 = Document('./schoolar.docx')
+for object1 in file4.tables:
+    for rows in object1.rows: #按行便利
+        for blanks in rows.cells:
+            print(blanks.text)
