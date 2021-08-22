@@ -13,12 +13,20 @@ inertia = cluster[2]
 print(centroid)
 label_name = ["class1","class2","class3"]
 plt.figure()
-color = ["blue","red","black"]
+color = ["blue","red","black","orange"]
 for k in range(len(label)):
     plt.scatter(X[k][0],X[k][1],color = color[label[k]])
 for k in range(len(centroid)):
     plt.scatter(centroid[k][0],centroid[k][1],color = "yellow",s = 20) #绘制聚类中心
 # plt.scatter(inertia)
 plt.show()
+print(inertia) #样本离最近聚类中心的总和
 
-
+#下面计算轮廓系数 轮廓系数主要衡量的是簇内的距离尽可能小，而簇间距离尽可能大
+from sklearn.metrics import silhouette_score #返回平均的一个轮廓系数
+from sklearn.metrics import silhouette_samples #返回每个样本的轮廓系数
+print(X)
+print(silhouette_score(X,label)) #轮廓系数越接近1最好
+print(silhouette_samples(X,label)) #每个样本
+from sklearn.metrics import calinski_harabasz_score
+print(calinski_harabasz_score(X,label)) #每个样本 越大越好
