@@ -52,6 +52,7 @@ for index,(X,y) in enumerate(datasets):#第一层循环，取出索引和四个�
         #为每张图添加分数
         ax.text(0.95,0.06,('%2f' %score).lstrip('0'),size=6,bbox=dict(boxstyle ="round",alpha =0.8,facecolor = "white")
                                                                        ,transform =ax.transAxes,horizontalalignment = 'right' )
+        #bbox：添加格子 transAxes:确定坐标轴为子图的本身 horizontalalignment：位于坐标轴的方向
     print("index ={}".format(index))
 
 plt.show()
