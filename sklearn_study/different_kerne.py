@@ -32,12 +32,14 @@ for index,(X,y) in enumerate(datasets):#第一层循环，取出索引和四个�
         ax.set_title("Input_data")  # 为第一个图放上数据
     for knernel_index,core in enumerate(Kernel):
         ax = axes[index,knernel_index+1] #在第2，3，4列绘制分类的图像
+        if index == 0:
+            ax.set_title(Kernel[knernel_index])
         ax.set_xticks([])
         ax.set_yticks([])
         clf = SVC(kernel=core,gamma=2).fit(X, y)  # 输入簇及对应的标号
         #绘制决策边界
         x_min,x_max = X[:,0].min()-0.5,X[:,0].max()+0.5
-        y_min, y_max = X[:, 0].min() - 0.5, X[:,0].max() + 0.5
+        y_min, y_max = X[:, 1].min() - 0.5, X[:,1].max() + 0.5
         XX,YY = np.mgrid[x_min:x_max:200j,y_min:y_max:200j]
         Z = clf.decision_function(np.c_[XX.ravel(),YY.ravel()]).reshape(XX.shape)
         ax.pcolormesh(XX,YY,Z>0,shading="auto",cmap=plt.cm.Paired)
@@ -45,8 +47,11 @@ for index,(X,y) in enumerate(datasets):#第一层循环，取出索引和四个�
         score = clf.score(X,y)
         print(score)
         ax.scatter(X[:,0],X[:,1],c=y,zorder = 10,cmap = plt.cm.Paired,edgecolors ="k")
-        # ax.contour(XX, YY, Z, colors="k", levels=[-1, 0, 1],
-        #            alpha=0.5, linestyles=["--", "-", "--"])
+        ax.contour(XX, YY, Z, colors="k", levels=[-1, 0, 1],
+                   alpha=0.5, linestyles=["--", "-", "--"])
+        #为每张图添加分数
+        ax.text(0.95,0.06,('%2f' %score).lstrip('0'),size=6,bbox=dict(boxstyle ="round",alpha =0.8,facecolor = "white")
+                                                                       ,transform =ax.transAxes,horizontalalignment = 'right' )
     print("index ={}".format(index))
 
 plt.show()
